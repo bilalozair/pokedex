@@ -10,23 +10,42 @@
     <title>Bilal's Pokedex</title>
 </head>
 <body>
-    <div class="hide" id="message-banner" ></div>
+    <div class="hide" id="message-banner" >
+        <h2>"Sorry, we couldn't find that pokemon :("</h2>
+    </div>
     <div class = "section" id="page-title">
         <h1>Bilal's Pokedex</h1>
     </div>
     <div class = "section" id="pokeball-logo"></div>
     <div class = "section" id="pokemon-search">
+        <div id="app-description">
+            <h2>Get details about a Pokemon with a single click!</h2>
+        </div>
+        
         <form class = "form" id="search-form">
-            <input type="text" placeholder="Enter Pokemon Name..." id = "name">
+            <input type="text" placeholder="Enter Pokemon Name..." id = "search-name">
             <!-- <button class="button" id = "choose-pokemon">I Choose You!</button> -->
             <input type="submit" class="button" value="I Choose You!">
         </form>
     </div>
-    <div class = "section" id="random-pokemon"></div>
-    <div class = "section" id="pokemon-grid">
-        <ul>
-            <!-- pokemon are displayed here -->
-        </ul>
+
+
+    <div class = "grid-container" id="pokemon-display-section">
+        <div class ="pokemon-img-card" >
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/25.svg" class ="pokemon-img">
+            <div class="pokemon-img-container">
+                <h4><b>#025</b></h4>
+                <p><b>Pikachu</b></p>
+            </div>
+        </div>
+        <div class="pokemon-stats-card">
+            <p>Type: <span id ="type"></span>
+            </p>
+            <p>HP: <span id ="hp"></span>
+            </p>            
+            <p>Moves: <span id ="moves"></span>
+            </p>    
+        </div>
     </div>
 
 
