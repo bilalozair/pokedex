@@ -1,0 +1,11 @@
+
+
+#pokeball-logo {
+    background-image: url("../images/pokemon-logo.png");
+    background-size: contain ;
+    background-repeat: no-repeat;
+    width: 50%;
+    left: 30%;
+    right: 30%;
+    height: 10em;
+}
