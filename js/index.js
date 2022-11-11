@@ -1,20 +1,17 @@
-document.addEventListener("DOMContentLoaded", () => {
-    fetchPokemon();
-    // console.log(pokemonObj);
+document.addEventListener('DOMContentLoaded', dispAllPokemon)
 
+const dispAllPokemon = () => {
 
-})
+// Start the API request at a random pokemon
+const max = 1154 - 20;
+const min = 0;
+const firstPokemon = Math.floor(Math.random() * (max - min + 1)) + min;
+const pageLimit = 20;
 
+//Build fetch request
+const url = `https://pokeapi.co/api/v2/pokemon/?offset=${firstPokemon}&limit=${pageLimit}`
+fetch(url)
+.then(res => res.json())
+.then(data => console.log(data))
 
-const fetchPokemon = () => {
-    fetch("https://pokeapi.co/api/v2/pokemon/1")
-    .then(resp => resp.json())
-    .then(data => {
-        let pokemonObj = {}
-        pokemonObj.name = data.name
-        pokemonObj.id = data.id
-        pokemonObj.image = data.sprites.front_default;
-        console.log(pokemonObj)
-        return pokemonObj
-    })
 }
