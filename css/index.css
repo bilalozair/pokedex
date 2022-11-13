@@ -1,5 +1,6 @@
  body {
     background-color: #A5EBB5;
+    font-family: monospace;
     margin-top: 5%;
     margin-left: 20%;
     margin-right: 20%;
@@ -25,11 +26,15 @@ span {
 .grid-container {
     padding-top: 5%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
+    grid-template-columns: 20% 20% 20% 20%;
+    grid-template-rows: 20% 20% 20% 20%;
+    grid-gap: 10 px;
+
 }
-.pokemon-img-card {
+.pokemon-image {
     text-align: center;
+    border: none;
+    margin: center ;
     padding-left: 20%;
     padding-right: 20%;
 }
