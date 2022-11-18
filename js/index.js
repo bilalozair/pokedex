@@ -53,13 +53,49 @@ document.addEventListener('DOMContentLoaded', () => {
     displayPokemon()
 
     const pokemonForm = document.getElementById('search-form');
-    pokemonForm.addEventListener('click', (e) => {
+    pokemonForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        console.log(pokemonForm);
-        console.log('clicked')
+        document.getElementById('pokemon-display-section').innerHTML =""
+        const pokemonQuery = e.target['search-name'].value;
+        lookandDiplayPokemon(pokemonQuery.toLowerCase());
     }
+    
     )
+    
     
 })
 
+const lookandDiplayPokemon = (query) => {
 
+fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
+.then(res => res.json())
+.then(data => {
+
+    let  searchObj = {
+        id: data.id,
+        name: data.name,
+        image: data.sprites.other.dream_world.front_default,
+        type: data.types.map((type) => type.type.name).join(', '),
+        moves: data.moves.map((move) => move.move.name),
+        weight: `${data.weight} kg`
+    }
+
+    console.log(searchObj)
+    
+    document.getElementById('pokemon-display-section').innerHTML =
+    `   <img src=${searchObj.image} class = 'pokemon-image'>
+        <p>${searchObj.name}</p>
+        <p>${searchObj.type}</p>
+        <p>${searchObj.moves[0]},
+            ${searchObj.moves[1]},
+            ${searchObj.moves[3]}
+        </p>
+        <p>${searchObj.weight}</p>  
+        </br> 
+    `
+
+
+
+
+
+})}
