@@ -49,5 +49,17 @@ const createPokeObj = (firstPokemon, pokemonData) => {
        
 
 
-document.addEventListener('DOMContentLoaded', displayPokemon)
+document.addEventListener('DOMContentLoaded', () => {
+    displayPokemon()
+
+    const pokemonForm = document.getElementById('search-form');
+    pokemonForm.addEventListener('click', (e) => {
+        e.preventDefault();
+        console.log(pokemonForm);
+        console.log('clicked')
+    }
+    )
+    
+})
+
 
