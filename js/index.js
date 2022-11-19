@@ -8,7 +8,7 @@
     retrievedPokemon.map( pokemon => {
         pokemonGrid.innerHTML += `
         <img src=${pokemon.image} class = 'pokemon-image'>
-        <h2>${pokemon.name}</h2>  
+        <h2 class = 'pokmeon-image'>${pokemon.name}</h2>  
         </br> 
     `
 }
