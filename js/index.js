@@ -6,10 +6,15 @@
     console.log(retrievedPokemon)
     const pokemonGrid = document.getElementById('pokemon-display-section');
     retrievedPokemon.map( pokemon => {
-        pokemonGrid.innerHTML += `
-        <img src=${pokemon.image} class = 'pokemon-image'>
-        <h2 class = 'pokmeon-image'>${pokemon.name}</h2>  
-        </br> 
+        pokemonGrid.innerHTML += `  <div class="card">
+        <div class="card-img">
+            <img src = ${pokemon.image} alt= ${pokemon.name}>
+        </div>
+        <div class="card-info">
+          <p class="text-title">${pokemon.name}</p>
+        </div>
+               
+
     `
 }
         
@@ -99,3 +104,6 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
 
 
 })}
+// <img src=${pokemon.image} class = 'pokemon-image'>
+        // <h2 class = 'pokmeon-image'>${pokemon.name}</h2>  
+        // </br> 
