@@ -91,26 +91,33 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
     console.log(searchObj)
     
     document.getElementById('pokemon-display-section').innerHTML =
-    `   <img src=${searchObj.image} class = 'pokemon-image'>
-        <p>${searchObj.name}</p>
-        <p>${searchObj.type}</p>
-        <p>${searchObj.moves[0]},
-            ${searchObj.moves[1]},
-            ${searchObj.moves[3]}
-        </p>
-        <p>${searchObj.weight}</p>  
-        </br> 
+    `  <div class="card">
+        <div class="card-img">
+            <img src = ${searchObj.image} alt= ${searchObj.name}>
+        </div>
+        <div class="card-info">
+          <p class="text-title">${searchObj.name}</p>
+          <p class="text-detail">Type: ${searchObj.type}</p>
+          <p class="text-detail">Moves: ${searchObj.moves[0]}</p>
+          <p class="text-detail">Weight: ${searchObj.weight}</p>
+        </div>
+        
+        </div>     
+
     `
+    // `   <img src=${searchObj.image} class = 'pokemon-image'>
+    //     <p>${searchObj.name}</p>
+    //     <p>${searchObj.type}</p>
+    //     <p>${searchObj.moves[0]},
+    //         ${searchObj.moves[1]},
+    //         ${searchObj.moves[3]}
+    //     </p>
+    //     <p>${searchObj.weight}</p>  
+    //     </br> 
+    // `
 
 
 
 
 
 })}
-// <img src=${pokemon.image} class = 'pokemon-image'>
-        // <h2 class = 'pokmeon-image'>${pokemon.name}</h2>  
-        // </br> 
-
-    
-        
-          
