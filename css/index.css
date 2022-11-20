@@ -55,15 +55,11 @@
   /*Text*/
   .text-title {
    font-weight: 900;
-   font-size: 1.2em;
-   line-height: 1.5;
+   font-size: 1.2rem;
+   line-height: 1;
   }
   
-  .text-body {
-   font-size: .9em;
-   padding-bottom: 10px;
-  }
-  
+
   /*Button*/
   .card-button {
    border: 1px solid #252525;
@@ -82,6 +78,11 @@
   
   .card-button:hover {
    border: 1px solid #ffcaa6;
-   background-color: #ffcaa6;
+   background-color: orange;
   }
   
+  .detail-btn-text {
+   font-size: larger;
+   text-align: center;
+
+  }
