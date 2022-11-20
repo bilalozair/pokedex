@@ -66,10 +66,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('pokemon-display-section').innerHTML =""
         const pokemonQuery = e.target['search-name'].value;
         lookandDiplayPokemon(pokemonQuery.toLowerCase());
-    }
+    })
     
-    )
-    
+    console.log(document.querySelectorAll('.detail-btn-text'))
     
 })
 
@@ -87,37 +86,26 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
         moves: data.moves.map((move) => move.move.name),
         weight: `${data.weight} kg`
     }
-
-    console.log(searchObj)
     
-    document.getElementById('pokemon-display-section').innerHTML =
+    document.getElementById('pokemon-display-section').innerHTML +=
     `  <div class="card">
         <div class="card-img">
             <img src = ${searchObj.image} alt= ${searchObj.name}>
         </div>
         <div class="card-info">
           <p class="text-title">${searchObj.name}</p>
-          <p class="text-detail">Type: ${searchObj.type}</p>
-          <p class="text-detail">Moves: ${searchObj.moves[0]}</p>
-          <p class="text-detail">Weight: ${searchObj.weight}</p>
+          <p class="text-detail"><span class ="text-title">Type:</span> ${searchObj.type}</p>
+          <p class="text-detail"><span class ="text-title">Moves:</span> ${searchObj.moves[0]}</p>
+          <p class="text-detail"><span class ="text-title">Weight:</span> ${searchObj.weight}</p>
         </div>
         
         </div>     
 
     `
-    // `   <img src=${searchObj.image} class = 'pokemon-image'>
-    //     <p>${searchObj.name}</p>
-    //     <p>${searchObj.type}</p>
-    //     <p>${searchObj.moves[0]},
-    //         ${searchObj.moves[1]},
-    //         ${searchObj.moves[3]}
-    //     </p>
-    //     <p>${searchObj.weight}</p>  
-    //     </br> 
-    // `
 
-
-
-
-
-})}
+})
+.catch((error) => {
+    alert('Not a Valid Pokemon :( Please Try Again!');
+    console.log(error)
+})
+}
