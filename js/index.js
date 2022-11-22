@@ -1,5 +1,6 @@
-//// POKEDEX APP
-//** This app makes GET requests to the PokeAPI (https://pokeapi.co) */
+//// POKEDEX APP ////
+/* This app makes GET requests to the PokeAPI (https://pokeapi.co) */
+
 
 /// RENDER WEB APP
 
@@ -99,7 +100,7 @@ const searchAndDisplayPokemon = (query) => {
         .then(res => res.json())
         .then(data => {
 
-            // Use the returned json data to build pokemon object including pokemon details like type, weight, moves etc.
+            // Use the returned json data to build pokemon object including pokemon stats like type, weight, moves etc.
             let  searchObj = {
                 name: data.name,
                 id: data.id,
@@ -110,7 +111,7 @@ const searchAndDisplayPokemon = (query) => {
                 // run map function on moves to get the names
                 moves: data.moves.map((move) => move.move.name),
                 }
-            //Clear pokemon cards from grid container div
+            //Append pokemon cards from grid container div
             document.getElementById('pokemon-display-section').innerHTML +=
             `<div class="card">
                 <div class="card-img">
@@ -124,7 +125,7 @@ const searchAndDisplayPokemon = (query) => {
                 </div>
             </div>`   
         })
-        // Alert user that they have entered an invalid name when PokeAPI fetch request throws an error
+        // Alert user that they have entered an invalid name when PokeAPI fetch request is unsuccessful
         .catch(() => {
             alert('Not a Valid Pokemon :( Please Try Again!');
         })
@@ -134,13 +135,13 @@ const searchAndDisplayPokemon = (query) => {
 
 const attachDetailBtnEvent =  () => {
 
-    // Grab all the card's button divs 
+    // Grab all the cards' button divs 
     document.querySelectorAll('.card-button').forEach(button => {
         // Attach click event listener to each button
         button.addEventListener('click', (e) => {
-            //Grab the parent div of the button div and navigate to the div containing name of pokemon
+            //Grab the parent div of the button div and navigate to the child node containing name of pokemon
             const clickedCard = e.target.offsetParent.childNodes[3].innerText;
-            //Clear the grid container div
+            //Clear the grid container div before details of clicked card are displayed
             document.getElementById('pokemon-display-section').innerHTML='';
             //Run the searchAndDisplay function using the name of the clicked Pokemon 
             searchAndDisplayPokemon(clickedCard)
