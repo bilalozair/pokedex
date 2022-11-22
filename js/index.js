@@ -106,17 +106,20 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
 
 }
 
-const attachEvents = () => {
+const attachEvents =  () => {
+    console.log(document.querySelectorAll('.card-button'))
     
-    document.querySelectorAll('.card-button').forEach(element => {
+        document.querySelectorAll('.card-button').forEach(element => {
 
-        element.addEventListener('click', (e) => {
-
-            let search_term = e.target.parentElement.children[1].innerText;
-            lookandDiplayPokemon(search_term)
-            console.log(search_term)
-
+            element.addEventListener('click', (e) => {
+            let search_term = e.target.offsetParent.childNodes[3].innerText;
+            console.log('event attached to:' , search_term)
+            document.getElementById('pokemon-display-section').innerHTML='';
+                lookandDiplayPokemon(search_term)
         })
+       
 
     })
+   
+
 }
