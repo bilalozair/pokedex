@@ -55,87 +55,93 @@ document.addEventListener('DOMContentLoaded', () => {
 const fetchPokemon = async () => {
     
     // Writing code to start the API request at a random pokemon endpoint
+    // max is 649 because no image exists for 650th pokemon
     const max = 649;
     const min = 1;
     const firstPokemon = Math.floor(Math.random() * (max - min + 1)) + min;
     const pageLimit = 20;  
 
-    /// Fetching Pokemon name, url and img to display to DOM
+    // Fetching Pokemon name, url and img to display to DOM
     const url = `https://pokeapi.co/api/v2/pokemon/?offset=${firstPokemon}&limit=${pageLimit}`;
-
-    let res = await fetch(url);
-    let pokemonData = await res.json();
-    const  pokemonList = createPokeObj(firstPokemon,pokemonData);
-    return pokemonList;
+    const res = await fetch(url);
+    // Storing json response (names and urls) to pokemonData variable
+    const pokemonData = await res.json();
+    // Creating an array of objects of using the createPokeObj function
+    const  pokemonArray = createPokeObj(firstPokemon,pokemonData);
+    return pokemonArray;
 
 }
 
+//  Build the createPokeObj function to return array of pokemon objects with desired key-value pairs
+
 const createPokeObj = (firstPokemon, pokemonData) => {
+
     const pokeObj = pokemonData.results.map((pokemon, index) => (
         {        
             id: firstPokemon + index + 1,
             name: pokemon.name,
+            // standard link for all pokemon image i.e. .../dream-world/id
             image: `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/${firstPokemon +index + 1}.svg`
         
         }
     ))
-    return pokeObj
+    return pokeObj;
 }
 
-
+// Build the feature to search a pokemon and display its information
        
 const searchAndDisplayPokemon = (query) => {
 
-fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
-.then(res => res.json())
-.then(data => {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
+        .then(res => res.json())
+        .then(data => {
 
-    let  searchObj = {
-        id: data.id,
-        name: data.name,
-        image: data.sprites.other.dream_world.front_default,
-        type: data.types.map((type) => type.type.name).join(', '),
-        moves: data.moves.map((move) => move.move.name),
-        weight: `${data.weight} kg`
-    }
-    
-    document.getElementById('pokemon-display-section').innerHTML +=
-    `  <div class="card">
-        <div class="card-img">
-            <img src = ${searchObj.image} alt= ${searchObj.name}>
-        </div>
-        <div class="card-info">
-          <p class="text-title">${searchObj.name}</p>
-          <p class="text-detail"><span class ="text-title">Type:</span> ${searchObj.type}</p>
-          <p class="text-detail"><span class ="text-title">Moves:</span> ${searchObj.moves[0]}</p>
-          <p class="text-detail"><span class ="text-title">Weight:</span> ${searchObj.weight}</p>
-        </div>
-        
-        </div>     
-    `
-
-})
-.catch((error) => {
-    alert('Not a Valid Pokemon :( Please Try Again!');
-    console.log(error)
-})
-
+            // Use the returned json data to build pokemon object including pokemon details like type, weight, moves etc.
+            let  searchObj = {
+                name: data.name,
+                id: data.id,
+                // run map function on types and string them together using join
+                type: data.types.map((type) => type.type.name).join(', '),
+                image: data.sprites.other.dream_world.front_default,
+                weight: `${data.weight} kg`,
+                // run map function on moves to get the names
+                moves: data.moves.map((move) => move.move.name),
+                }
+            //Clear pokemon cards from grid container div
+            document.getElementById('pokemon-display-section').innerHTML +=
+            `<div class="card">
+                <div class="card-img">
+                    <img src = ${searchObj.image} alt= ${searchObj.name}>
+                </div>
+                <div class="card-info">
+                    <p class="text-title">${searchObj.name}</p>
+                    <p class="text-detail"><span class ="text-title">Type:</span> ${searchObj.type}</p>
+                    <p class="text-detail"><span class ="text-title">Moves:</span> ${searchObj.moves[0]}</p>
+                    <p class="text-detail"><span class ="text-title">Weight:</span> ${searchObj.weight}</p>
+                </div>
+            </div>`   
+        })
+        // Alert user that they have entered an invalid name when PokeAPI fetch request throws an error
+        .catch(() => {
+            alert('Not a Valid Pokemon :( Please Try Again!');
+        })
 }
 
+// Build the function to attach events to the "get detail" button of each pokemon card
+
 const attachDetailBtnEvent =  () => {
-    console.log(document.querySelectorAll('.card-button'))
-    
-        document.querySelectorAll('.card-button').forEach(element => {
 
-            element.addEventListener('click', (e) => {
-            let search_term = e.target.offsetParent.childNodes[3].innerText;
-            console.log('event attached to:' , search_term)
+    // Grab all the card's button divs 
+    document.querySelectorAll('.card-button').forEach(button => {
+        // Attach click event listener to each button
+        button.addEventListener('click', (e) => {
+            //Grab the parent div of the button div and navigate to the div containing name of pokemon
+            const clickedCard = e.target.offsetParent.childNodes[3].innerText;
+            //Clear the grid container div
             document.getElementById('pokemon-display-section').innerHTML='';
-                searchAndDisplayPokemon(search_term)
+            //Run the searchAndDisplay function using the name of the clicked Pokemon 
+            searchAndDisplayPokemon(clickedCard)
         })
-       
-
     })
-   
 
 }
