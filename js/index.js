@@ -1,3 +1,6 @@
+//// POKEDEX APP
+//** This app makes GET requests to the PokeAPI (https://pokeapi.co) */
+
 /// RENDER WEB APP
 
 document.addEventListener('DOMContentLoaded', () => {
