@@ -3,7 +3,8 @@
 ## Description
 
     Bial's Pokedex is a JS application that leverages DOM manipulation to interact with the user. 
-    I built this project because I grew up watching Pokemon and thought it would be a fun idea to build a basic pokedex.
+    I built this project because I grew up watching Pokemon and thought it would be a fun idea 
+    to build a basic pokedex.
 
 ## Installation
 
