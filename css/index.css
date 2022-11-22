@@ -24,6 +24,10 @@ h1 {
    font-size: 5rem;
 }
 
+#pokeball-logo img {
+   width: 150px
+}
+
 #page-title {
    border-top-right-radius: 50px;
    border-top-left-radius: 50px;
@@ -47,7 +51,7 @@ background-color: #e76f51;
 
 
 .card {
-   width: 100%;
+   width: auto;
    height: 280px;
    display: inline-block;
    padding: .8em;
@@ -100,12 +104,14 @@ background-color: #e76f51;
   /*Button*/
   .card-button {
    border: 1px solid #252525;
+   justify-content: center;
    display: flex;
    padding: .3em;
    cursor: pointer;
    border-radius: 50px;
    transition: .3s ease-in-out;
   }
+
   
   /*Hover*/
   .card-img:hover {

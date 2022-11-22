@@ -1,27 +1,41 @@
+document.addEventListener('DOMContentLoaded', () => {
+    const pokemonForm = document.getElementById('search-form');
+    
+    pokemonForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        document.getElementById('pokemon-display-section').innerHTML =""
+        const pokemonQuery = e.target['search-name'].value;
+        lookandDiplayPokemon(pokemonQuery.toLowerCase());
+    })
+    displayPokemon()
+
+})
+ 
+  
   const displayPokemon = async () => {
     // fetch call to API for 20 random pokemon
 
     
     const retrievedPokemon = await fetchPokemon();
-    console.log(retrievedPokemon)
     const pokemonGrid = document.getElementById('pokemon-display-section');
     retrievedPokemon.map( pokemon => {
-        pokemonGrid.innerHTML += `  <div class="card">
-        <div class="card-img">
-            <img src = ${pokemon.image} alt= ${pokemon.name}>
-        </div>
-        <div class="card-info">
-          <p class="text-title">${pokemon.name}</p>
-        </div>
-        <div class="card-button">
-           <span class ="detail-btn-text"> Get Details! </span>
-        </div>
+        pokemonGrid.innerHTML += 
+        `<div class="card">
+            <div class="card-img">
+                <img src = ${pokemon.image} alt= ${pokemon.name}>
+            </div>
+            <div class="card-info">
+                <p class="text-title">${pokemon.name}</p>
+            </div>
+            <div class="card-button">
+                <p class ="detail-btn-text"> Get Details! </p>
+            </div>
         </div>     
 
     `
+    })
+    attachEvents()
 }
-        
-)}
 
 const fetchPokemon = async () => {
 /// Writing code to start the API request at a random pokemon
@@ -35,7 +49,6 @@ const fetchPokemon = async () => {
 
     let res = await fetch(url);
     let pokemonData = await res.json();
-    console.log(pokemonData)
     const  pokemonList = createPokeObj(firstPokemon,pokemonData);
     return pokemonList;
 
@@ -55,23 +68,6 @@ const createPokeObj = (firstPokemon, pokemonData) => {
 
 
        
-
-
-document.addEventListener('DOMContentLoaded', () => {
-    displayPokemon()
-
-    const pokemonForm = document.getElementById('search-form');
-    pokemonForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        document.getElementById('pokemon-display-section').innerHTML =""
-        const pokemonQuery = e.target['search-name'].value;
-        lookandDiplayPokemon(pokemonQuery.toLowerCase());
-    })
-    
-    console.log(document.querySelectorAll('.detail-btn-text'))
-    
-})
-
 const lookandDiplayPokemon = (query) => {
 
 fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
@@ -100,7 +96,6 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
         </div>
         
         </div>     
-
     `
 
 })
@@ -108,4 +103,20 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
     alert('Not a Valid Pokemon :( Please Try Again!');
     console.log(error)
 })
+
+}
+
+const attachEvents = () => {
+    
+    document.querySelectorAll('.card-button').forEach(element => {
+
+        element.addEventListener('click', (e) => {
+
+            let search_term = e.target.parentElement.children[1].innerText;
+            lookandDiplayPokemon(search_term)
+            console.log(search_term)
+
+        })
+
+    })
 }
