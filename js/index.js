@@ -1,26 +1,39 @@
+/// RENDER WEB APP
+
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize and Render 20 Pokemon to DOM
+    renderPokemonCards();
+
+    // Grab search form from DOM
     const pokemonForm = document.getElementById('search-form');
-    
+
+    //Add submit event listener to form
     pokemonForm.addEventListener('submit', (e) => {
         e.preventDefault();
-        document.getElementById('pokemon-display-section').innerHTML =""
+        // Clear pokemon grid
+        document.getElementById('pokemon-display-section').innerHTML ="";
+        // Grab form submission, assign to variable
         const pokemonQuery = e.target['search-name'].value;
-        lookandDiplayPokemon(pokemonQuery.toLowerCase());
+        searchAndDisplayPokemon(pokemonQuery.toLowerCase());
     })
-    displayPokemon()
-
 })
  
-  
-  const displayPokemon = async () => {
-    // fetch call to API for 20 random pokemon
+ /// BUILD APP FUNCTIONS
+ 
+// Build the render function for pokemon cards
 
+ const renderPokemonCards = async () => {
     
+    // Wait until fetchPokemon function retrieves list of random pokemon from PokeAPI    
     const retrievedPokemon = await fetchPokemon();
+    // Grab the grid container div from DOM
     const pokemonGrid = document.getElementById('pokemon-display-section');
-    retrievedPokemon.map( pokemon => {
+    // Create Pokemon Card for each pokemon and attach it to the grid container div in the DOM
+    retrievedPokemon.map(pokemon => {
+
         pokemonGrid.innerHTML += 
-        `<div class="card">
+        `
+        <div class="card">
             <div class="card-img">
                 <img src = ${pokemon.image} alt= ${pokemon.name}>
             </div>
@@ -30,15 +43,18 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="card-button">
                 <p class ="detail-btn-text"> Get Details! </p>
             </div>
-        </div>     
-
-    `
+        </div>
+        `
     })
-    attachEvents()
+    // Run attachDetailBtnEvent function to attach click events to the "Get Details" button for each Card
+    attachDetailBtnEvent()
 }
 
+// Build the fetchPokemon function to send GET request to PokeAPI
+
 const fetchPokemon = async () => {
-/// Writing code to start the API request at a random pokemon
+    
+    // Writing code to start the API request at a random pokemon endpoint
     const max = 649;
     const min = 1;
     const firstPokemon = Math.floor(Math.random() * (max - min + 1)) + min;
@@ -68,7 +84,7 @@ const createPokeObj = (firstPokemon, pokemonData) => {
 
 
        
-const lookandDiplayPokemon = (query) => {
+const searchAndDisplayPokemon = (query) => {
 
 fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
 .then(res => res.json())
@@ -106,7 +122,7 @@ fetch(`https://pokeapi.co/api/v2/pokemon/${query}`)
 
 }
 
-const attachEvents =  () => {
+const attachDetailBtnEvent =  () => {
     console.log(document.querySelectorAll('.card-button'))
     
         document.querySelectorAll('.card-button').forEach(element => {
@@ -115,7 +131,7 @@ const attachEvents =  () => {
             let search_term = e.target.offsetParent.childNodes[3].innerText;
             console.log('event attached to:' , search_term)
             document.getElementById('pokemon-display-section').innerHTML='';
-                lookandDiplayPokemon(search_term)
+                searchAndDisplayPokemon(search_term)
         })
        
 
